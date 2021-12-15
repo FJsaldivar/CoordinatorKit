@@ -1,2 +1,3 @@
-# CoordinatorKit
-In contruction
+# Coordinator
+
+A description of this package.
