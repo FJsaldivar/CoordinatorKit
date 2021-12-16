@@ -14,52 +14,58 @@ public protocol NavigationDependecy {
 
 public protocol StackNavigable {
     var coordinator: Coordinator { get }
-    var navigation: UINavigationController { get }
+    var controller: UINavigationController { get }
     
-    func present(_ route: String, dependency: Dependenciable,  animated: Bool, completion: (() -> Void)?) throws
-    func push(_ route: String, dependency: Dependenciable, animated: Bool) throws
+    func present(_ route: Routeable, dependency: Dependenciable,  animated: Bool, completion: (() -> Void)?) throws
+    func push(_ route: Routeable, dependency: Dependenciable, animated: Bool) async throws
     func popModule(animated: Bool)
     func dismissModule(animated: Bool, completion: (() -> Void)?)
-    func setRootModule(_ route: String, dependency: Dependenciable?, hideBar: Bool) throws
+    func setRootModule(_ route:  Routeable, dependency: Dependenciable?, hideBar: Bool) async throws
     func popToRootModule(animated: Bool)
 }
 
 extension StackNavigable {
-    public func present(_ route: String, dependency: Dependenciable, animated: Bool, completion: (() -> Void)?) throws {
+    
+    public func present(_  route: Routeable, dependency: Dependenciable, animated: Bool, completion: (() -> Void)?) throws {
         
     }
     
-    public func push(_ route: String, dependency: Dependenciable, animated: Bool) throws {
-        
+    public func push(_ route: Routeable, dependency: Dependenciable = Dependency(), animated: Bool) async throws {
+        let view = try await coordinator.getFeature(route: route).build(navigationCenter: coordinator.navigationCenter)
+        await controller.pushViewController(view, animated: true)
     }
     
     public func popModule(animated: Bool) {
-        
+        Task {
+            controller.popViewController(animated: animated)
+        }
     }
     
     public func dismissModule(animated: Bool, completion: (() -> Void)?) {
         
     }
     
-    public func setRootModule(_ route: String, dependency: Dependenciable?, hideBar: Bool) throws {
-        try coordinator.initRootNavigationController(route: route, dependency: dependency)
+    public func setRootModule(_ route:  Routeable, dependency: Dependenciable? = nil, hideBar: Bool) async throws {
+        let view = try await coordinator.getFeature(route: route).build(navigationCenter: coordinator.navigationCenter)
+        await controller.setViewControllers([view], animated: true)
     }
     
     public func popToRootModule(animated: Bool) {
-
+        
     }
 }
 
-public protocol TabNavigationType {
-    init(cordinator: Coordinator, navigation: UINavigationController)
-}
 
-public protocol NavigationCenterType {
+public protocol NavigationCenterType: AnyObject {
     var navigation: StackNavigable? { get }
-    var tabNavigation: TabNavigationType? { get }
+
+    func createRootNavigationController(navigation: UINavigationController)
     
-    init(window: UIWindow, coordinator: Coordinator)
-    
-    func createRootNavigationController(navigation: UINavitagionController)
+    func setCoordinator(coordintarot: Coordinator)
 }
 
+public enum NavigationState {
+    case start
+    case push
+    case pop
+}

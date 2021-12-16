@@ -8,20 +8,29 @@
 import Foundation
 import UIKit
 public struct Navigation: StackNavigable {
-    public let navigation: UINavigationController
+    
+    public let controller: UINavigationController
     public let coordinator: Coordinator
     
     public init(cordinator: Coordinator, navigation: UINavigationController) {
-        self.navigation = navigation
+        self.controller = navigation
         self.coordinator = cordinator
     }
 }
 
-public struct NavigationCenter: NavigationCenterType {
+public final class NavigationCenter: NavigationCenterType {
+
     public var navigation: StackNavigable?
-    public var tabNavigation: TabNavigationType?
     
-    public init(window: UIWindow, coordinator: Coordinator) {
-        
+    private var coordinator: Coordinator!
+
+    public func setCoordinator(coordintarot: Coordinator) {
+        self.coordinator = coordintarot
+    }
+    
+    public func createRootNavigationController(navigation: UINavigationController) {
+        self.navigation = Navigation(cordinator: coordinator, navigation: navigation)
+        coordinator.window.rootViewController = navigation
+        coordinator.window.makeKeyAndVisible()
     }
 }

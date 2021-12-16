@@ -7,51 +7,38 @@
 
 import Foundation
 import UIKit
+import XCTest
 public protocol Coordinator {
-    var routes: [Routeable.Type] { get }
+    var modules: [ModuleRouteable.Type] { get }
     var window: UIWindow { get set }
-
-    func initRootNavigationController(route: String, dependency: Dependenciable?) throws
-    
-    func createRootNav(viewController: UIViewController) -> NavigationCenterType
+    var navigationCenter: NavigationCenterType! { get set }
+    mutating func start(route: Routeable, defaultView: UIViewController) async throws
 }
 
 public extension Coordinator {
     
-    func filterRoute(route: String) throws -> Routeable.Type {
-
-        guard let routeModule = routes.first(where: { $0.route == route}) else {
-            throw CoordinatorError(message: "routes not contains route \(route)")
+    mutating func start(route: Routeable, defaultView: UIViewController) async throws {
+        do {
+            self.navigationCenter = NavigationCenter()
+            self.navigationCenter.setCoordinator(coordintarot: self)
+            let view = try await getFeature(route: route).build(navigationCenter: navigationCenter)
+            await navigationCenter.createRootNavigationController(navigation: .init(rootViewController: view))
+        } catch {
+            await navigationCenter.createRootNavigationController(navigation: .init(rootViewController: defaultView))
         }
-        return routeModule
-    }
-
-    func createRootNav(viewController: UIViewController) -> NavigationCenterType {
-        let navigationController: UINavigationController = .init(rootViewController: viewController)
-        return NavigationCenter(navigation: Navigation(cordinator: self, navigation: navigationController), tabNavigation: nil)
+        
     }
     
-    fileprivate func createRouter(_ dependency: Dependenciable?,
-                                  _ routeModule: Routeable.Type) throws -> Routerable {
-        if let dependency = dependency {
-            return try routeModule.typeOf.build(dependency: dependency)
+    func getFeature(route: Routeable) async throws -> Feature.Type {
+        let moduleName = type(of: route).module
+        guard let moduleType =  modules.first(where: { $0.route == moduleName })?.typeOf else {
+            throw CoordinatorError(message: "Not register \(moduleName) in \(type(of: self)) stack")
         }
-        return try routeModule.typeOf.build()
-    }
-    
-    func initRootNavigationController(route: String, dependency: Dependenciable? = nil) throws {
-        let routeModule: Routeable.Type = try filterRoute(route: route)
-        let router: Routerable = try createRouter(dependency, routeModule)
-        let navigationCenter: NavigationCenterType = self.createRootNav(viewController: router.viewController)
-        router.setNavigation(navigation: navigationCenter)
-        guard let navigationController = navigationCenter.navigation?.navigation,
-              router.navigation != nil else {
-                  throw CoordinatorError(message: "Error, router not setter to navigation center, please check setNavigation implementation in \(router.self) ")
-        }
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
-    }
+        let module = try await moduleType.build()
+        
+        return try await module.getFeature(route: route)
 
+    }
 }
 
 public enum RootType {

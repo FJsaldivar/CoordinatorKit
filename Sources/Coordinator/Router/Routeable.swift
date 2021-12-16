@@ -9,26 +9,23 @@ import Foundation
 import UIKit
 
 public protocol Routeable {
+    static var module: String { get }
+    var route: String { get }
+}
+
+public protocol ModuleRouteable {
+    var routes: [Feature.Type] { get }
     static var route: String { get }
     static var typeOf: Modulable.Type { get }
 }
 
-public struct Route {
-    var type: Routeable
+public protocol FeatureRouteable {
+    static var route: String { get }
+    static var typeOf: Feature.Type { get }
 }
 
-public protocol Routerable: AnyObject {
-    var viewController: UIViewController { set get }
-    var navigation: NavigationCenterType! { set get }
-    
-    init(viewController: UIViewController)
-    
-    func setNavigation(navigation: NavigationCenterType)
+public protocol Routerable {
+    var nav: NavigationCenterType { set get }
 }
 
-extension Routerable {
 
-    public func setNavigation(navigation: NavigationCenterType) {
-        self.navigation = navigation
-    }
-}
