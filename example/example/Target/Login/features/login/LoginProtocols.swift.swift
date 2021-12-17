@@ -16,6 +16,7 @@ protocol LoginRouterable: Routerable {
 
 protocol LoginPresentable {
     init(interactor: LoginInteractor, router: LoginRouterable)
+    func toRegister()
 }
 protocol LoginViewable {
     init(presenter: LoginPresentable)

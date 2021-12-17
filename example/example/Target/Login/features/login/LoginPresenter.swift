@@ -14,4 +14,8 @@ final class LoginPresenter: LoginPresentable {
         self.interactor = interactor
         self.router = router
     }
+    
+    func toRegister() {
+        router.pushRegister()
+    }
 }

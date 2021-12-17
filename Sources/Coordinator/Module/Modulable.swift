@@ -39,7 +39,7 @@ public extension Modulable {
     
     func getFeature(route: Routeable) async throws -> Feature.Type {
         guard let feature = routes.first(where: {route.route == $0.route}) else {
-            throw CoordinatorError.init(message: "\(Self.self) not contain \(route.route)")
+            throw CoordinatorError.init(message: "\(Self.self) not register Feature \(route.route)")
         }
         
         return feature

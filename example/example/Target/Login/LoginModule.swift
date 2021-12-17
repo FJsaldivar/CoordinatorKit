@@ -10,7 +10,8 @@ import Coordinator
 
 final class LoginModule: Modulable {
     var routes: [Feature.Type] {
-        [LoginFeature.self]
+        [LoginFeature.self,
+         RegisterFeature.self]
     }
     
     static var route: String { LoginRoutes.module }

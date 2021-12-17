@@ -12,5 +12,13 @@ struct LoginRouter: LoginRouterable {
     var nav: NavigationCenterType
     
     func pushRegister() {
+        Task {
+            do {
+                try await nav.navigation?.push(LoginRoutes.register, animated: true)
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+        
     }
 }

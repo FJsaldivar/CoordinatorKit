@@ -11,6 +11,6 @@ public struct CoordinatorError: Error, LocalizedError {
     public var errorDescription: String?
 
     public init(message: String) {
-        self.errorDescription = message
+        self.errorDescription = "Coordinator Error:" + message
     }
 }
