@@ -23,8 +23,9 @@ public extension Coordinator {
             self.navigationCenter.setCoordinator(coordintarot: self)
             let view = try await getFeature(route: route).build(navigationCenter: navigationCenter)
             await navigationCenter.createRootNavigationController(navigation: .init(rootViewController: view))
-        } catch {
+        } catch let error {
             await navigationCenter.createRootNavigationController(navigation: .init(rootViewController: defaultView))
+            throw error
         }
         
     }

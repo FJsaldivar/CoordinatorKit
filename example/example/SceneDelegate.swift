@@ -23,12 +23,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appCoordinator = AppCoordinator(window: window)
         Task {
             do {
-                try await appCoordinator?.start(route: SplashRoutes.splash, defaultView: ViewController())
+
+                try await appCoordinator?.start(route: LoginRoutes.recovery,
+                                                defaultView: getDefaultViewController())
             } catch let error {
                 print("Error initializate app: \(error.localizedDescription)")
             }
         }
         
+    }
+    
+    func getDefaultViewController() -> UIViewController{
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        return storyboard.instantiateViewController(withIdentifier: "ErrorLoading")
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

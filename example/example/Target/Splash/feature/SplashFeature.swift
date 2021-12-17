@@ -10,15 +10,10 @@ import Coordinator
 import UIKit
 
 final class SplashFeature: Feature {
-    
-    static var typeOf: Feature.Type {
-        Self.self
-    }
-    
+
     static var route: String {
         SplashRoutes.splash.rawValue
     }
-    
 
     static func build(navigationCenter: NavigationCenterType) async throws -> UIViewController {
         let router: SplashRouterable = SplashRouter(nav: navigationCenter)
