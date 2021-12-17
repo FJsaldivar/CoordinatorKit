@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Task {
             do {
 
-                try await appCoordinator?.start(route: LoginRoutes.recovery,
+                try await appCoordinator?.start(route: SplashRoutes.splash,
                                                 defaultView: getDefaultViewController())
             } catch let error {
                 print("Error initializate app: \(error.localizedDescription)")
