@@ -8,6 +8,7 @@
 import Foundation
 import Coordinator
 struct RegisterRouter: RegisterRouterable {
-    var nav: NavigationCenterType
-
+    var coordinator: Coordinator
+    
+    
 }

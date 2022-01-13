@@ -8,14 +8,31 @@
 import Foundation
 import Coordinator
 import UIKit
-final class RegisterFeature: Feature {
+struct RegisterFeature: Feature {
     static var route: String { LoginRoutes.register.rawValue }
+    var dependency: Dependenciable!
+
+    init(dependency: Dependenciable) throws {
+        self.dependency = dependency
+    }
     
-    static func build(navigationCenter: NavigationCenterType) async throws -> UIViewController {
-        let interactor = RegisterInteracotr()
-        let router = RegisterRouter(nav: navigationCenter)
+    init() throws {
+    }
+}
+
+extension RegisterFeature {
+    func buildView(coordinator: Coordinator) async -> UIViewController {
+        let interactor = RegisterInteractor()
+        let router = RegisterRouter(coordinator: coordinator)
         let presenter = RegisterPresenter(interactor: interactor, router: router)
-        let view = await RegisterView(presenter: presenter)
-        return view
+        return await RegisterView(presenter: presenter)
+    }
+    
+    
+    func start(coordinator: Coordinator, navigationState: NavigationState) throws {
+        Task {
+            let view = await self.buildView(coordinator: coordinator)
+            navigationState.build(window: coordinator.window, view: view)
+        }
     }
 }

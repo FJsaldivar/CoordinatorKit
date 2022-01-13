@@ -6,6 +6,6 @@
 //
 
 import Foundation
-final class RegisterInteracotr: RegisterInteractable {
+final class RegisterInteractor: RegisterInteractable {
     
 }

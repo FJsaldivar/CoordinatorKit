@@ -19,8 +19,9 @@ public struct FeatureItem {
 }
 
 public protocol Modulable: ModuleRouteable {
+
     static func build() async throws -> Modulable
-    static func build(dependency: Dependency) async throws -> Modulable
+    static func build<T: Dependenciable>(dependency: T) async throws -> Modulable
     func getFeature(route: Routeable) async throws -> Feature.Type
 }
 
@@ -33,34 +34,47 @@ public extension Modulable {
     static func build() async throws -> Modulable {
         throw CoordinatorError(message: "\(#function)This method not is implement")
     }
-    static func build(dependency: Dependency) async throws -> Modulable {
+    
+    static func build<T: Dependenciable>(dependency: T) async throws -> Modulable {
         try await build()
     }
     
     func getFeature(route: Routeable) async throws -> Feature.Type {
+
         guard let feature = routes.first(where: {route.route == $0.route}) else {
             throw CoordinatorError.init(message: "\(Self.self) not register Feature \(route.route)")
         }
-        
+
         return feature
     }
 }
 
 public protocol Feature: FeatureRouteable {
-    static func build(navigationCenter: NavigationCenterType) async throws -> UIViewController
-    static func build(navigationCenter: NavigationCenterType, dependency: Dependenciable) async throws -> UIViewController
+    init(dependency: Dependenciable) throws
+    init() throws
+    static func build(dependency: Dependenciable?) throws -> Feature
+    func start(coordinator: Coordinator, navigationState: NavigationState)  throws
+    func buildView(coordinator: Coordinator) async -> UIViewController
+
 }
 
-
 public extension Feature {
-    
     static var typeOf: Feature.Type { Self.self }
+    
+    static func build(dependency: Dependenciable? = nil) throws -> Feature {
+        guard let dependency = dependency else {
+            return try Self.init()
+        }
 
-    static func build(navigationCenter: NavigationCenterType) async throws -> UIViewController {
-        throw CoordinatorError(message: "\(#function)This method not is implement")
+        return try Self.init(dependency: dependency)
     }
     
-    static func build(navigationCenter: NavigationCenterType, dependency: Dependenciable) async throws -> UIViewController {
-        try await Self.build(navigationCenter: navigationCenter)
+    init() throws {
+        throw CoordinatorError(message: "Not implement")
     }
+    
+    init(dependency: Dependenciable) throws {
+        throw CoordinatorError(message: "Not implement")
+    }
+    
 }

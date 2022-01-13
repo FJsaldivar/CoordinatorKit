@@ -16,7 +16,7 @@ final class SplashModule: Modulable {
     static var route: String {
         SplashRoutes.module
     }
-    static func build() async throws -> Modulable {
+    static func build() throws -> Modulable {
         return Self()
     }
 }

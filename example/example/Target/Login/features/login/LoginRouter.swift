@@ -8,17 +8,19 @@
 import Foundation
 import Coordinator
 
+
 struct LoginRouter: LoginRouterable {
-    var nav: NavigationCenterType
+    var coordinator: Coordinator
     
     func pushRegister() {
-        Task {
-            do {
-                try await nav.navigation?.push(LoginRoutes.register, animated: true)
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }
-        
+        run({
+            try await coordinator
+                .getFeature(route: LoginRoutes.recovery)
+                .init()
+                .start(coordinator: coordinator, navigationState: .push)
+        }, error: { error in
+            print(error.localizedDescription)
+        })
     }
+    
 }

@@ -9,16 +9,35 @@ import Foundation
 import Coordinator
 import UIKit
 
-final class LoginFeature: Feature {
-
-    static var route: String { LoginRoutes.login.rawValue }
+public struct LoginFeature: Feature {
+    public var dependency: Dependenciable!
     
-    static func build(navigationCenter: NavigationCenterType) async throws -> UIViewController {
-        let inreractor = LoginInteractor()
-        let router = LoginRouter(nav: navigationCenter)
-        let presenter = LoginPresenter(interactor: inreractor, router: router)
+    public init(dependency: Dependenciable) throws {
+        self.dependency = dependency
+    }
+    
+    public init() throws {
+        
+    }
+    
+    
+    public static var route: String { LoginRoutes.login.rawValue }
 
+}
+
+extension LoginFeature {
+
+    public func buildView(coordinator: Coordinator) async -> UIViewController {
+        let inreractor = LoginInteractor()
+        let router = LoginRouter(coordinator: coordinator)
+        let presenter = LoginPresenter(interactor: inreractor, router: router)
         return await LoginView(presenter: presenter)
     }
-
+    
+    public func start(coordinator: Coordinator, navigationState: NavigationState) {
+        Task {
+            let view = await self.buildView(coordinator: coordinator)
+            navigationState.build(window: coordinator.window, view: view)
+        }
+    }
 }

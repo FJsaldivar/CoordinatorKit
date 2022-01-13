@@ -5,12 +5,12 @@
 //  Created by Francisco Javier Saldivar Rubio on 01/12/21.
 //
 
-import Foundation
 import UIKit
 
 public protocol Routeable {
     static var module: String { get }
     var route: String { get }
+    var dependecy: Dependenciable? { get set }
 }
 
 public protocol ModuleRouteable {
@@ -25,7 +25,19 @@ public protocol FeatureRouteable {
 }
 
 public protocol Routerable {
-    var nav: NavigationCenterType { set get }
+    var coordinator: Coordinator { set get }
 }
 
-
+public func run(_ task: @escaping () async throws -> Void, error: @escaping ((Error) -> Void)) {
+    
+    let error: ((Error) -> Void)? = error
+    let task : (() async throws -> Void)? = task
+    
+    Task {
+        do {
+            try await task?()
+        } catch let taskError {
+            error?(taskError)
+        }
+    }
+}

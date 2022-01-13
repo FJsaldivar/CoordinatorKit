@@ -10,7 +10,7 @@ import Coordinator
 import UIKit
 
 struct AppCoordinator: Coordinator {
-    var navigationCenter: NavigationCenterType!    
+
     var modules: [ModuleRouteable.Type] {
         return [SplashModule.self,
                 LoginModule.self]

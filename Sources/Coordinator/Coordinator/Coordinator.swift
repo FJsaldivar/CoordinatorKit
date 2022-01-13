@@ -11,25 +11,9 @@ import XCTest
 public protocol Coordinator {
     var modules: [ModuleRouteable.Type] { get }
     var window: UIWindow { get set }
-    var navigationCenter: NavigationCenterType! { get set }
-    mutating func start(route: Routeable, defaultView: UIViewController) async throws
 }
 
 public extension Coordinator {
-    
-    mutating func start(route: Routeable, defaultView: UIViewController) async throws {
-        do {
-            self.navigationCenter = NavigationCenter()
-            self.navigationCenter.setCoordinator(coordintarot: self)
-            let view = try await getFeature(route: route).build(navigationCenter: navigationCenter)
-            await navigationCenter.createRootNavigationController(navigation: .init(rootViewController: view))
-        } catch let error {
-            await navigationCenter.createRootNavigationController(navigation: .init(rootViewController: defaultView))
-            throw error
-        }
-        
-    }
-    
     func getFeature(route: Routeable) async throws -> Feature.Type {
         let moduleName = type(of: route).module
         guard let moduleType =  modules.first(where: { $0.route == moduleName })?.typeOf else {
@@ -40,9 +24,4 @@ public extension Coordinator {
         return try await module.getFeature(route: route)
 
     }
-}
-
-public enum RootType {
-    case navigation
-    case tabNavigation
 }

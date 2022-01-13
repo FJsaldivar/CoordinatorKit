@@ -13,17 +13,16 @@ protocol SplashRouterable: Routerable {
 }
 
 struct SplashRouter: SplashRouterable {
-    var nav: NavigationCenterType
-    
-    
+    var coordinator: Coordinator
+
     func openLogin() {
         Task {
-            do{
-                try await nav.navigation?.setRootModule(LoginRoutes.login, dependency: nil, hideBar: true)
-            } catch let error {
-                print(error.localizedDescription)
-            }
+                try await coordinator
+                .getFeature(route: LoginRoutes.login)
+                .init()
+                .start(coordinator: coordinator,
+                       navigationState: .push)
+            
         }
-        
     }
 }

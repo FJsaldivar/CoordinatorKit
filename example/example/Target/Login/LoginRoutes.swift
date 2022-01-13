@@ -15,6 +15,15 @@ enum LoginRoutes: String {
 }
 
 extension LoginRoutes: Routeable {
+    var dependecy: Dependenciable? {
+        get {
+            nil
+        }
+        set(newValue) {
+            
+        }
+    }
+    
     static var module: String { "Login" }
     var route: String { self.rawValue }
 }

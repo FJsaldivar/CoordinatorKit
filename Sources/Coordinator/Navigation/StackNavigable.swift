@@ -8,64 +8,58 @@
 import Foundation
 import UIKit
 
-public protocol NavigationDependecy {
-    var cordinator: Coordinator { get }
-}
-
-public protocol StackNavigable {
-    var coordinator: Coordinator { get }
-    var controller: UINavigationController { get }
-    
-    func present(_ route: Routeable, dependency: Dependenciable,  animated: Bool, completion: (() -> Void)?) throws
-    func push(_ route: Routeable, dependency: Dependenciable, animated: Bool) async throws
-    func popModule(animated: Bool)
-    func dismissModule(animated: Bool, completion: (() -> Void)?)
-    func setRootModule(_ route:  Routeable, dependency: Dependenciable?, hideBar: Bool) async throws
-    func popToRootModule(animated: Bool)
-}
-
-extension StackNavigable {
-    
-    public func present(_  route: Routeable, dependency: Dependenciable, animated: Bool, completion: (() -> Void)?) throws {
-        
-    }
-    
-    public func push(_ route: Routeable, dependency: Dependenciable = Dependency(), animated: Bool) async throws {
-        let view = try await coordinator.getFeature(route: route).build(navigationCenter: coordinator.navigationCenter)
-        await controller.pushViewController(view, animated: true)
-    }
-    
-    public func popModule(animated: Bool) {
-        Task {
-            controller.popViewController(animated: animated)
-        }
-    }
-    
-    public func dismissModule(animated: Bool, completion: (() -> Void)?) {
-        
-    }
-    
-    public func setRootModule(_ route:  Routeable, dependency: Dependenciable? = nil, hideBar: Bool) async throws {
-        let view = try await coordinator.getFeature(route: route).build(navigationCenter: coordinator.navigationCenter)
-        await controller.setViewControllers([view], animated: true)
-    }
-    
-    public func popToRootModule(animated: Bool) {
-        
-    }
-}
-
-
-public protocol NavigationCenterType: AnyObject {
-    var navigation: StackNavigable? { get }
-
-    func createRootNavigationController(navigation: UINavigationController)
-    
-    func setCoordinator(coordintarot: Coordinator)
+private struct NavigationAction {
+    var window: UIWindow
+    var action: ((UIWindow) -> Void)
 }
 
 public enum NavigationState {
-    case start
+    case singleRoot
+    case rootNavigation
     case push
-    case pop
 }
+
+public extension NavigationState {
+    
+    func build(window: UIWindow, view: UIViewController) {
+        let action = NavigationAction.self
+        switch self {
+        case .singleRoot:
+            action.singleRoot(window: window, view: view)
+        case .rootNavigation:
+            action.rootNavigation(window: window, view: view)
+        case .push:
+            action.push(window: window, view: view)
+        
+        }
+    }
+}
+
+extension NavigationAction {
+    
+    static func singleRoot(window: UIWindow, view: UIViewController) {
+        DispatchQueue.main.async {
+            window.rootViewController = view
+            window.makeKeyAndVisible()
+        }
+        
+    }
+    
+    static func push(window: UIWindow, view: UIViewController) {
+        DispatchQueue.main.async {
+            guard let navigationController = window.rootViewController as? UINavigationController else {
+                rootNavigation(window: window, view: view)
+                return
+            }
+            navigationController.pushViewController(view, animated: true)
+        }
+        
+    }
+    
+    static func rootNavigation(window: UIWindow, view: UIViewController) {
+        let navigationController = UINavigationController(rootViewController: view)
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+    }
+}
+

@@ -40,6 +40,8 @@
 		B69AD3AF276BC89100397647 /* RegisterRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69AD3AE276BC89100397647 /* RegisterRoute.swift */; };
 		B69AD3B1276BC90300397647 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69AD3B0276BC90300397647 /* RegisterView.swift */; };
 		B69AD3B3276BC94400397647 /* RegisterFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = B69AD3B2276BC94400397647 /* RegisterFeature.swift */; };
+		B6EEBB9D279080A000DC1722 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EEBB9C279080A000DC1722 /* Dependency.swift */; };
+		B6EEBB9F2790813B00DC1722 /* SplashDependenciable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EEBB9E2790813B00DC1722 /* SplashDependenciable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +100,8 @@
 		B69AD3AE276BC89100397647 /* RegisterRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterRoute.swift; sourceTree = "<group>"; };
 		B69AD3B0276BC90300397647 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		B69AD3B2276BC94400397647 /* RegisterFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterFeature.swift; sourceTree = "<group>"; };
+		B6EEBB9C279080A000DC1722 /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
+		B6EEBB9E2790813B00DC1722 /* SplashDependenciable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashDependenciable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +156,7 @@
 		B648069E276AB61500132332 /* example */ = {
 			isa = PBXGroup;
 			children = (
+				B6EEBB9B2790809100DC1722 /* dependency */,
 				B69AD392276BC12300397647 /* Target */,
 				B648069F276AB61500132332 /* AppDelegate.swift */,
 				B64806A1276AB61500132332 /* SceneDelegate.swift */,
@@ -203,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				B64806E2276ABCD700132332 /* feature */,
+				B6EEBB9E2790813B00DC1722 /* SplashDependenciable.swift */,
 				B64806E0276ABC5400132332 /* SplashModule.swift */,
 				B64806ED276AD97F00132332 /* SplashRoutes.swift */,
 			);
@@ -281,6 +287,14 @@
 				B69AD3B2276BC94400397647 /* RegisterFeature.swift */,
 			);
 			path = register;
+			sourceTree = "<group>";
+		};
+		B6EEBB9B2790809100DC1722 /* dependency */ = {
+			isa = PBXGroup;
+			children = (
+				B6EEBB9C279080A000DC1722 /* Dependency.swift */,
+			);
+			path = dependency;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -420,6 +434,7 @@
 				B69AD39F276BC37400397647 /* LoginPresenter.swift in Sources */,
 				B69AD38F276B814000397647 /* AppCoordinator.swift in Sources */,
 				B69AD3A7276BC5E200397647 /* LoginModule.swift in Sources */,
+				B6EEBB9D279080A000DC1722 /* Dependency.swift in Sources */,
 				B64806A4276AB61500132332 /* ViewController.swift in Sources */,
 				B64806E6276ABD4000132332 /* SplashRouter.swift in Sources */,
 				B64806E1276ABC5400132332 /* SplashModule.swift in Sources */,
@@ -439,6 +454,7 @@
 				B69AD3AD276BC87100397647 /* RegisterPresenter.swift in Sources */,
 				B64806E4276ABCE800132332 /* SplashFeature.swift in Sources */,
 				B69AD395276BC14900397647 /* LoginRoutes.swift in Sources */,
+				B6EEBB9F2790813B00DC1722 /* SplashDependenciable.swift in Sources */,
 				B69AD3AB276BC85800397647 /* RegisterInteractor.swift in Sources */,
 				B64806EE276AD97F00132332 /* SplashRoutes.swift in Sources */,
 				B64806EC276AD30100132332 /* SplashView.swift in Sources */,

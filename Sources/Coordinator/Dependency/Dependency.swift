@@ -8,37 +8,17 @@
 import Foundation
 import UIKit
 import MapKit
+
 public protocol Dependenciable {
-    var arg: [String: Any] { get set }
-    init()
-}
-
-public struct Dependency: Dependenciable {
-    public var arg: [String : Any] = [:]
-
-    public init() {
-    }
+ 
 }
 
 public extension Dependenciable {
-
-    mutating func put(tag: String, value: Any) {
-        self.arg[tag] = value
-    }
-    
-    func get<T>(tag: String) throws -> T {
-        if arg.isEmpty {
-            throw CoordinatorError.empty
+    func transform <T: Dependenciable>() throws -> T {
+        guard let spected = self as? T else {
+            throw CoordinatorError(message: "Error dependency: Spected \(T.self) /= retrive \(self)")
         }
-        guard let value = arg[tag] else {
-            throw CoordinatorError.notFound(tag: tag)
-        }
-                
-        guard let result = value as? T else {
-            throw CoordinatorError.notResolve(type: T.self, element: value)
-        }
-
-        return result
+        return spected
     }
 }
 

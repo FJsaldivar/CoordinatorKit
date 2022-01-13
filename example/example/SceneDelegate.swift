@@ -10,7 +10,7 @@ import Coordinator
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
-    var appCoordinator: Coordinator?
+    var appCoordinator: Coordinator!
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -23,9 +23,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appCoordinator = AppCoordinator(window: window)
         Task {
             do {
-
-                try await appCoordinator?.start(route: SplashRoutes.splash,
-                                                defaultView: getDefaultViewController())
+                let dependency = SplashDependency(isFirstLauncher: true)
+                let route = SplashRoutes.getSplashRoute(dependecy: dependency)
+                try await appCoordinator?
+                    .getFeature(route: route)
+                    .init(dependency: dependency)
+                    .start(coordinator: appCoordinator ,
+                           navigationState: .singleRoot)
             } catch let error {
                 print("Error initializate app: \(error.localizedDescription)")
             }
