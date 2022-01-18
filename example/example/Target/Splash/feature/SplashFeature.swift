@@ -33,11 +33,4 @@ extension SplashFeature {
        
        return await SplashView(presenter: presenter)
    }
-   
-   func start(coordinator: Coordinator, navigationState: NavigationState) throws {
-       Task {
-           let view = await self.buildView(coordinator: coordinator)
-           navigationState.build(window: coordinator.window, view: view)
-       }
-   }
 }
