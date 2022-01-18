@@ -9,7 +9,8 @@ import Foundation
 import Coordinator
 import UIKit
 struct RegisterFeature: Feature {
-    static var link: String { LoginLink.register.rawValue }
+    static var link: Linkable { LoginLink.register }
+    
     var dependency: Dependenciable!
 
     init(dependency: Dependenciable) throws {

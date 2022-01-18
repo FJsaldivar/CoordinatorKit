@@ -10,11 +10,11 @@ import Coordinator
 import UIKit
 
 struct SplashFeature: Feature {
+    
+    static var link: Linkable { SplashLinks.splash }
+    
     var dependency: SplashDependency
 
-    static var link: String {
-        SplashLinks.splash.value
-    }
     
     init(dependency: Dependenciable) throws {
         self.dependency = try dependency.transform()

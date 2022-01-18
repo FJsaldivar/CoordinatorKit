@@ -10,13 +10,12 @@ import Coordinator
 import UIKit
 
 public struct LoginFeature: Feature {
+    public static var link: Linkable { LoginLink.login }
+    
 
     public init() throws {
         
     }
-
-    public static var link: String { LoginLink.login.rawValue }
-
 }
 
 extension LoginFeature {

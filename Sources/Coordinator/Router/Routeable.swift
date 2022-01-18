@@ -18,6 +18,12 @@ public protocol Linkable {
     var value: String { get }
 }
 
+extension Linkable {
+    static func == (lhs: Linkable, rsh: Linkable) -> Bool {
+        return lhs.value == rsh.value
+    }
+}
+
 public protocol ModuleRouteable {
     var routes: [Feature.Type] { get }
     static var moduleIdentifier: String { get }
@@ -25,7 +31,7 @@ public protocol ModuleRouteable {
 }
 
 public protocol FeatureRouteable {
-    static var link: String { get }
+    static var link: Linkable { get }
     static var typeOf: Feature.Type { get }
 }
 

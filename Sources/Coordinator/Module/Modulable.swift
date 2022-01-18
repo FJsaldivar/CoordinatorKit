@@ -40,9 +40,8 @@ public extension Modulable {
     }
     
     func getFeature(route: Routeable) async throws -> Feature.Type {
-        print(route.link.value)
-        print(routes.first?.link)
-        guard let feature = routes.first(where: {route.link.value == $0.link}) else {
+        
+        guard let feature = routes.first(where: {route.link == $0.link}) else {
             throw CoordinatorError.init(message: "\(Self.self) not register Feature \(route.link.value)")
         }
 
