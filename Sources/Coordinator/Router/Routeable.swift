@@ -39,7 +39,7 @@ public protocol Routerable {
     var coordinator: Coordinator { set get }
 }
 
-public func run(_ task: @escaping () async throws -> Void, error: @escaping ((Error) -> Void)) {
+public func run(_ task: @escaping () async throws -> Void, error: @escaping ((Error) async -> Void)) {
     
     let error: ((Error) -> Void)? = error
     let task : (() async throws -> Void)? = task
