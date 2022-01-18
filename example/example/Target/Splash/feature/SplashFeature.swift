@@ -13,12 +13,13 @@ struct SplashFeature: Feature {
     
     static var link: Linkable { SplashLinks.splash }
     
-    var dependency: SplashDependency
+    var dependency: SplashDependenciable
 
     
     init(dependency: Dependenciable) throws {
-        self.dependency = try dependency.transform()
+        self.dependency = try map(value: dependency)
     }
+    
 
 }
 
