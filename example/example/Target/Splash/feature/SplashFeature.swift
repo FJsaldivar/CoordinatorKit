@@ -12,8 +12,8 @@ import UIKit
 struct SplashFeature: Feature {
     var dependency: SplashDependency
 
-    static var route: String {
-        SplashRoutes.path.splash.rawValue
+    static var link: String {
+        SplashLinks.splash.value
     }
     
     init(dependency: Dependenciable) throws {

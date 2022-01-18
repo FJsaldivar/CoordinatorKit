@@ -26,7 +26,6 @@ final class RegisterView: UIViewController, RegisterViewable {
         title = "Rregister"
         self.setUp()
     }
-    
 }
 
 extension RegisterView {

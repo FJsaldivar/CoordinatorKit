@@ -14,6 +14,4 @@ final class RegisterPresenter: RegisterPresentable {
         self.interactor = interactor
         self.router = router
     }
-    
-    
 }

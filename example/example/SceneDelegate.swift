@@ -24,10 +24,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         Task {
             do {
                 let dependency = SplashDependency(isFirstLauncher: true)
-                let route = SplashRoutes.getSplashRoute(dependecy: dependency)
+                let route = SplashLinks.splashLink(dependency: dependency)
                 try await appCoordinator?
                     .getFeature(route: route)
-                    .init(dependency: dependency)
                     .start(coordinator: appCoordinator ,
                            navigationState: .singleRoot)
             } catch let error {

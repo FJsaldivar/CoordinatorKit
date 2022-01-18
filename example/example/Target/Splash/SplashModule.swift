@@ -13,7 +13,7 @@ final class SplashModule: Modulable {
         [SplashFeature.self]
     }
     
-    static var route: String {
+    static var moduleIdentifier: String {
         SplashRoutes.module
     }
     static func build() throws -> Modulable {

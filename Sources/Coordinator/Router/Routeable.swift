@@ -9,18 +9,23 @@ import UIKit
 
 public protocol Routeable {
     static var module: String { get }
-    var route: String { get }
-    var dependecy: Dependenciable? { get set }
+
+    var dependecy: Dependenciable? { get }
+    var link: Linkable { get }
+}
+
+public protocol Linkable {
+    var value: String { get }
 }
 
 public protocol ModuleRouteable {
     var routes: [Feature.Type] { get }
-    static var route: String { get }
+    static var moduleIdentifier: String { get }
     static var typeOf: Modulable.Type { get }
 }
 
 public protocol FeatureRouteable {
-    static var route: String { get }
+    static var link: String { get }
     static var typeOf: Feature.Type { get }
 }
 

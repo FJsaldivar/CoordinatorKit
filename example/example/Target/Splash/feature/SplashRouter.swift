@@ -18,8 +18,7 @@ struct SplashRouter: SplashRouterable {
     func openLogin() {
         Task {
                 try await coordinator
-                .getFeature(route: LoginRoutes.login)
-                .init()
+                .getFeature(route: LoginLink.getRoute(.login))
                 .start(coordinator: coordinator,
                        navigationState: .push)
             

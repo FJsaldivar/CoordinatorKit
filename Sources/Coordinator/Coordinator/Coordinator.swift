@@ -14,14 +14,18 @@ public protocol Coordinator {
 }
 
 public extension Coordinator {
-    func getFeature(route: Routeable) async throws -> Feature.Type {
+
+    func getFeature(route: Routeable) async throws -> Feature {
         let moduleName = type(of: route).module
-        guard let moduleType =  modules.first(where: { $0.route == moduleName })?.typeOf else {
+        guard let moduleType =  modules.first(where: { $0.moduleIdentifier == moduleName })?.typeOf else {
             throw CoordinatorError(message: "Not register \(moduleName) in \(type(of: self)) stack")
         }
         let module = try await moduleType.build()
-        
-        return try await module.getFeature(route: route)
+        guard let dependency = route.dependecy else {
+            return try await module.getFeature(route: route).init()
+        }
+
+        return try await module.getFeature(route: route).init(dependency: dependency)
 
     }
 }

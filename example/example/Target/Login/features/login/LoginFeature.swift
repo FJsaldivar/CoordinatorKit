@@ -10,18 +10,12 @@ import Coordinator
 import UIKit
 
 public struct LoginFeature: Feature {
-    public var dependency: Dependenciable!
-    
-    public init(dependency: Dependenciable) throws {
-        self.dependency = dependency
-    }
-    
+
     public init() throws {
         
     }
-    
-    
-    public static var route: String { LoginRoutes.login.rawValue }
+
+    public static var link: String { LoginLink.login.rawValue }
 
 }
 

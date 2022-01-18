@@ -9,14 +9,11 @@ import Foundation
 import Coordinator
 import UIKit
 struct RegisterFeature: Feature {
-    static var route: String { LoginRoutes.register.rawValue }
+    static var link: String { LoginLink.register.rawValue }
     var dependency: Dependenciable!
 
     init(dependency: Dependenciable) throws {
         self.dependency = dependency
-    }
-    
-    init() throws {
     }
 }
 

@@ -9,6 +9,5 @@ import Foundation
 import Coordinator
 struct RegisterRouter: RegisterRouterable {
     var coordinator: Coordinator
-    
-    
+
 }

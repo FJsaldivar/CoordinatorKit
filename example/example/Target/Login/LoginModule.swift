@@ -14,7 +14,7 @@ final class LoginModule: Modulable {
          RegisterFeature.self]
     }
     
-    static var route: String { LoginRoutes.module }
+    static var moduleIdentifier: String { LoginRoute.module }
     
     static func build() async throws -> Modulable {
         Self.init()

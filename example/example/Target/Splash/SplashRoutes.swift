@@ -8,21 +8,33 @@
 import Foundation
 import Coordinator
 
-public struct SplashRoutes: Routeable {
-   public var dependecy: Dependenciable?
-   public var route: String
-   static public var module: String { "Splash" }
+public protocol SplashRoutable: Routeable { }
+
+public extension SplashRoutable {
+    static var module: String { "Splash" }
 }
 
-public extension SplashRoutes {
+public struct SplashRoutes: SplashRoutable {
 
-    static func getSplashRoute(dependecy: SplashDependenciable) -> SplashRoutes {
-        return .init(dependecy: dependecy, route: path.splash.rawValue)
+    public var dependecy: Dependenciable?
+    public var link: Linkable
+    
+    init(link: SplashLinks, dependency: SplashDependenciable) {
+        self.link = link
+        self.dependecy = dependency
     }
 }
 
-extension SplashRoutes {
-    enum path: String {
-        case splash
+public enum SplashLinks: String, Linkable {
+    public var value: String { return self.rawValue }
+
+    case splash
+    
+}
+
+public extension SplashLinks {
+
+    static func splashLink(dependency: SplashDependenciable) -> SplashRoutes {
+        return .init(link: .splash, dependency: dependency)
     }
 }

@@ -40,9 +40,10 @@ public extension Modulable {
     }
     
     func getFeature(route: Routeable) async throws -> Feature.Type {
-
-        guard let feature = routes.first(where: {route.route == $0.route}) else {
-            throw CoordinatorError.init(message: "\(Self.self) not register Feature \(route.route)")
+        print(route.link.value)
+        print(routes.first?.link)
+        guard let feature = routes.first(where: {route.link.value == $0.link}) else {
+            throw CoordinatorError.init(message: "\(Self.self) not register Feature \(route.link.value)")
         }
 
         return feature
@@ -52,23 +53,18 @@ public extension Modulable {
 public protocol Feature: FeatureRouteable {
     init(dependency: Dependenciable) throws
     init() throws
-    static func build(dependency: Dependenciable?) throws -> Feature
+
     func start(coordinator: Coordinator, navigationState: NavigationState)  throws
     func buildView(coordinator: Coordinator) async -> UIViewController
 
 }
 
 public extension Feature {
-    static var typeOf: Feature.Type { Self.self }
     
-    static func build(dependency: Dependenciable? = nil) throws -> Feature {
-        guard let dependency = dependency else {
-            return try Self.init()
-        }
-
-        return try Self.init(dependency: dependency)
+    static var typeOf: Feature.Type {
+        Self.self
     }
-    
+
     init() throws {
         throw CoordinatorError(message: "Not implement")
     }

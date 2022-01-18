@@ -11,4 +11,3 @@ import Coordinator
 public protocol SplashDependenciable: Dependenciable {
     var isFirstLauncher: Bool { get set }
 }
-

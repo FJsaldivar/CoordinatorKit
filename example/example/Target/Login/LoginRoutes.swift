@@ -8,22 +8,29 @@
 import Foundation
 import Coordinator
 
-enum LoginRoutes: String {
+
+protocol LoginRouteable: Routeable { }
+
+extension LoginRouteable {
+    public static var module: String { "Login"}
+}
+
+public struct LoginRoute: LoginRouteable {
+    
+    public var dependecy: Dependenciable?
+    
+    public var link: Linkable
+
+}
+
+public enum LoginLink: String, Linkable {
+    public var value: String { return self.rawValue }
+    
     case recovery
     case register
     case login
-}
-
-extension LoginRoutes: Routeable {
-    var dependecy: Dependenciable? {
-        get {
-            nil
-        }
-        set(newValue) {
-            
-        }
-    }
     
-    static var module: String { "Login" }
-    var route: String { self.rawValue }
+    static func getRoute(_ link: LoginLink) -> LoginRoute {
+        return .init(dependecy: nil, link: link)
+    }
 }
