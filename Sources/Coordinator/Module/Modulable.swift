@@ -65,11 +65,11 @@ public extension Feature {
     }
 
     init() throws {
-        throw CoordinatorError(message: "Not implement")
+        throw CoordinatorError(message: "\(Self.self) Not implement 'init' function")
     }
     
     init(dependency: Dependenciable) throws {
-        throw CoordinatorError(message: "Not implement")
+        throw CoordinatorError(message: "\(Self.self) Not implement 'init(dependency: Dependenciable)' function")
     }
     
     func start(coordinator: Coordinator, navigationState: NavigationState) throws {

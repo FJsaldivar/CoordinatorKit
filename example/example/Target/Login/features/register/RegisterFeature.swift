@@ -13,8 +13,8 @@ struct RegisterFeature: Feature {
     
     var dependency: Dependenciable!
 
-    init(dependency: Dependenciable) throws {
-        self.dependency = dependency
+    init() throws {
+        
     }
 }
 

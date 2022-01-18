@@ -15,7 +15,7 @@ struct LoginRouter: LoginRouterable {
     func pushRegister() {
         run({
             try await coordinator
-                .getFeature(route: LoginLink.getRoute(.recovery))
+                .getFeature(route: LoginLink.getRoute(.register))
                 .start(coordinator: coordinator, navigationState: .push)
         }, error: { error in
             print(error.localizedDescription)
