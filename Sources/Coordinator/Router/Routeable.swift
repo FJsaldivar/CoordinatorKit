@@ -41,14 +41,14 @@ public protocol Routerable {
 
 public func run(_ task: @escaping () async throws -> Void, error: @escaping ((Error) async -> Void)) {
     
-    let error: ((Error) -> Void)? = error
+    let error: ((Error) async -> Void)? = error
     let task : (() async throws -> Void)? = task
     
     Task {
         do {
             try await task?()
         } catch let taskError {
-            error?(taskError)
+            await error?(taskError)
         }
     }
 }
