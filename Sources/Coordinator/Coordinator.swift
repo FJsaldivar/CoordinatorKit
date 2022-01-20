@@ -5,9 +5,9 @@
 //  Created by Francisco Javier Saldivar Rubio on 01/12/21.
 //
 
-import Foundation
+
 import UIKit
-import XCTest
+
 public protocol Coordinator {
     var modules: [ModuleRouteable.Type] { get }
     var window: UIWindow { get set }
