@@ -1,0 +1,21 @@
+PODS:
+  - Coordinator (0.0.1)
+
+DEPENDENCIES:
+  - "Coordinator (from `https://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@github.com/FJsaldivar/CoordinatorKit`)"
+
+EXTERNAL SOURCES:
+  Coordinator:
+    :git: "https://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@github.com/FJsaldivar/CoordinatorKit"
+
+CHECKOUT OPTIONS:
+  Coordinator:
+    :commit: 0313a03f2df43f6e00687ac4bac6c9ad8c80bded
+    :git: "https://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@github.com/FJsaldivar/CoordinatorKit"
+
+SPEC CHECKSUMS:
+  Coordinator: 508c1e727ee6976900fafe89245a5a8cceac9469
+
+PODFILE CHECKSUM: 37d2c8ac4a742269db516b76ba25a51af9b52a0f
+
+COCOAPODS: 1.11.2
