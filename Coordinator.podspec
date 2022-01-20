@@ -27,7 +27,7 @@ Pod::Spec.new do |spec|
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   spec.description      = 'Coordinator framework modular application'
 
-  spec.homepage     = "https://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@github.com/FJsaldivar/CoordinatorKit"
+  spec.homepage     = "https://github.com/FJsaldivar/CoordinatorKit.git"
   # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -79,7 +79,8 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://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@github.com/FJsaldivar/CoordinatorKit", :tag => "#{spec.version}" }
+#temp token = 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
+  spec.source       = { :git => "https://github.com/FJsaldivar/CoordinatorKit.git", :tag => "#{spec.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -90,7 +91,7 @@ Pod::Spec.new do |spec|
   #  Not including the public_header_files will make all headers public.
   #
 
-  spec.source_files  = "Classes", "Source/Coordinator/**/*.{h,m}"
+  spec.source_files  = "Classes", "Source/Coordinator/**/*"
   #spec.exclude_files = "Classes/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
