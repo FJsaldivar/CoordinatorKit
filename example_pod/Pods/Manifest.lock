@@ -2,20 +2,15 @@ PODS:
   - Coordinator (0.0.1)
 
 DEPENDENCIES:
-  - "Coordinator (from `https://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@github.com/FJsaldivar/CoordinatorKit`)"
+  - Coordinator (from `../`)
 
 EXTERNAL SOURCES:
   Coordinator:
-    :git: "https://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@github.com/FJsaldivar/CoordinatorKit"
-
-CHECKOUT OPTIONS:
-  Coordinator:
-    :commit: 0313a03f2df43f6e00687ac4bac6c9ad8c80bded
-    :git: "https://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@github.com/FJsaldivar/CoordinatorKit"
+    :path: "../"
 
 SPEC CHECKSUMS:
   Coordinator: 508c1e727ee6976900fafe89245a5a8cceac9469
 
-PODFILE CHECKSUM: 37d2c8ac4a742269db516b76ba25a51af9b52a0f
+PODFILE CHECKSUM: bbb159b2c8a33e8e923206851654317ecae8fcc4
 
 COCOAPODS: 1.11.2

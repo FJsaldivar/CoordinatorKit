@@ -3,7 +3,8 @@
 platform :ios, '13.0'
 
 target 'example_pod' do
-  pod 'Coordinator', :git => 'https://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@github.com/FJsaldivar/CoordinatorKit'
+  pod 'Coordinator', :path => '../'
+
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
